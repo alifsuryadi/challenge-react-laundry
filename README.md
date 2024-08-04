@@ -84,22 +84,23 @@ Buka `http://localhost:5174` untuk melihat aplikasi berjalan.
 
 ## Struktur Proyek
 
-src/
-├── assets/ # Aset seperti gambar, ikon, dll.
-├── components/ # Komponen UI dan logika terkait
-│ ├── ProductContext.jsx # Konteks produk
-│ ├── products/ # Komponen terkait produk
-│ ├── customers/ # Komponen terkait pelanggan
-│ └── transactions/ # Komponen terkait transaksi
-├── lib/ # Utility dan helper
-│ └── axios.js # Konfigurasi axios
-├── pages/ # Halaman utama aplikasi
-│ ├── HomePage.jsx
-│ ├── LoginPage.jsx
-│ └── dashboard/ # Halaman terkait dashboard
-├── App.jsx # Komponen utama aplikasi
-├── index.css # Gaya global
-└── main.jsx # Entry point aplikasi
+| File/Folder Name                    | Description                     |
+| ----------------------------------- | ------------------------------- |
+| `src/assets/`                       | Aset seperti gambar, ikon, dll. |
+| `src/components/`                   | Komponen UI dan logika terkait. |
+| `src/components/ProductContext.jsx` | Konteks produk.                 |
+| `src/components/products/`          | Komponen terkait produk.        |
+| `src/components/customers/`         | Komponen terkait pelanggan.     |
+| `src/components/transactions/`      | Komponen terkait transaksi.     |
+| `src/lib/`                          | Utility dan helper.             |
+| `src/lib/axios.js`                  | Konfigurasi axios.              |
+| `src/pages/`                        | Halaman utama aplikasi.         |
+| `src/pages/HomePage.jsx`            | Komponen untuk halaman beranda. |
+| `src/pages/LoginPage.jsx`           | Komponen untuk halaman login.   |
+| `src/pages/dashboard/`              | Halaman terkait dashboard.      |
+| `src/App.jsx`                       | Komponen utama aplikasi.        |
+| `src/index.css`                     | Gaya global.                    |
+| `src/main.jsx`                      | Entry point aplikasi.           |
 
 ## Konfigurasi API
 
