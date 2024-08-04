@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useEffect } from "react";
+import React, { createContext, useContext, useState, useEffect } from "react";
 import { axiosInstance } from "../lib/axios";
 
 const ProductContext = createContext();
@@ -19,24 +19,13 @@ export const ProductProvider = ({ children }) => {
     fetchProducts();
   }, []);
 
-  useEffect(() => {
-    const saveProducts = async () => {
-      try {
-        await axiosInstance.post("/products", { products });
-      } catch (error) {
-        console.error("Gagal menyimpan produk", error);
-      }
-    };
-
-    saveProducts();
-  }, [products]);
-
   const addProduct = async (product) => {
     try {
       const token = localStorage.getItem("token");
       if (!token) {
         throw new Error("Token tidak ditemukan");
       }
+      console.log("Request data:", product);
 
       const response = await axiosInstance.post("/products", product, {
         headers: {
@@ -48,6 +37,9 @@ export const ProductProvider = ({ children }) => {
       setProducts([...products, response.data.data]);
     } catch (error) {
       console.error("Gagal menambah produk", error);
+      if (error.response) {
+        console.error("Error response:", error.response);
+      }
     }
   };
 
@@ -57,17 +49,14 @@ export const ProductProvider = ({ children }) => {
       if (!token) {
         throw new Error("Token tidak ditemukan");
       }
+      console.log("Request data:", updatedProduct);
 
-      await axiosInstance.put(
-        `/products/${updatedProduct.id}`,
-        updatedProduct,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      await axiosInstance.put(`products`, updatedProduct, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      });
 
       setProducts(
         products.map((product) =>
@@ -76,6 +65,9 @@ export const ProductProvider = ({ children }) => {
       );
     } catch (error) {
       console.error("Gagal memperbarui produk", error);
+      if (error.response) {
+        console.error("Error response:", error.response);
+      }
     }
   };
 
@@ -86,7 +78,7 @@ export const ProductProvider = ({ children }) => {
         throw new Error("Token tidak ditemukan");
       }
 
-      await axiosInstance.delete(`/products/${id}`, {
+      await axiosInstance.delete(`products/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -95,12 +87,21 @@ export const ProductProvider = ({ children }) => {
       setProducts(products.filter((product) => product.id !== id));
     } catch (error) {
       console.error("Gagal menghapus produk", error);
+      if (error.response) {
+        console.error("Error response:", error.response);
+      }
     }
   };
 
   return (
     <ProductContext.Provider
-      value={{ products, addProduct, updateProduct, deleteProduct }}
+      value={{
+        products,
+        setProducts,
+        addProduct,
+        updateProduct,
+        deleteProduct,
+      }}
     >
       {children}
     </ProductContext.Provider>

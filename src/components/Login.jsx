@@ -92,7 +92,7 @@ const Login = () => {
   }, [showNotification]);
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
+    <div className="flex items-center justify-center min-h-screen  bg-gradient-to-r from-blue-500 to-indigo-500">
       <Card style={{ minWidth: "420px", padding: "40px" }}>
         <CardHeader>
           <h1 className="text-2xl font-bold text-center mb-4">
